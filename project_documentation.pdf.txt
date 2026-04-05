@@ -1,0 +1,43 @@
+CYBER PHYSICAL BANKING SYSTEM
+==========================
+
+Full-Stack Flask + Docker Banking Demo
+-------------------------------------
+
+KEY FEATURES
+------------
+• Admin creates customer accounts (ID + Password)
+• Customer portal: balance, deposit, withdraw 
+• Role-based dashboards & authentication
+• Dockerized (production-ready)
+• Responsive cyberpunk UI
+
+DEMO FLOW
+---------
+1. Admin: admin / admin123
+2. Create customer: cust001 / pass123
+3. Customer login → Manage account
+
+QUICK START
+-----------
+Local: pip install -r requirements.txt && python app.py
+Docker: docker-compose up --build
+
+LIVE: http://localhost:5000
+REPO: github.com/Bharathjee/cyber-physical-banking-management
+
+STRUCTURE
+---------
+├── app.py (Flask + role auth)
+├── models/ (User, Customer, CustomerUser)
+├── templates/ (admin/customer dashboards)  
+├── static/style.css (cyberpunk theme)
+├── Dockerfile + docker-compose.yml
+
+TECH STACK
+----------
+Backend: Flask, Gunicorn
+Container: Docker
+Storage: In-memory (Redis/PostgreSQL ready)
+
+LICENSE: MIT
