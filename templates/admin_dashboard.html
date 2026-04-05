@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Cyber Physical Banking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard - {{ user }}</h1>
+        <nav>
+            <a href="{{ url_for('logout') }}" class="btn secondary">Logout</a>
+        </nav>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        
+        <h2>Create Customer Account</h2>
+        <form method="POST" action="{{ url_for('create_customer_user') }}">
+            <input type="text" name="cust_id" placeholder="Customer ID" required>
+            <input type="password" name="cust_password" placeholder="Customer Password" required>
+            <input type="text" name="name" placeholder="Customer Name" required>
+            <input type="text" name="account" placeholder="Account Number" required>
+            <input type="number" name="balance" placeholder="Initial Balance" step="0.01" value="0.00" required>
+            <button type="submit" class="btn">Create Customer</button>
+        </form>
+
+        <h2>All Customers</h2>
+        {% if customers %}
+            <ul>
+                {% for cust_id, cust in customers.items() %}
+                    <li>ID: {{ cust_id }} ({{ cust.name }}) - {{ cust.account_number }}: ${{ "%.2f"|format(cust.balance) }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No customers yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+

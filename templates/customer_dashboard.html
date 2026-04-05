@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Cyber Physical Banking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Dashboard - {{ user }}</h1>
+        <nav>
+            <a href="{{ url_for('logout') }}" class="btn secondary">Logout</a>
+        </nav>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        
+        <h2>Your Account</h2>
+        <div class="account-info">
+            <p><strong>Name:</strong> {{ customer.name }}</p>
+            <p><strong>Account:</strong> {{ customer.account_number }}</p>
+            <p><strong>Balance:</strong> ${{ "%.2f"|format(customer.balance) }}</p>
+        </div>
+
+        <h3>Quick Actions</h3>
+        <form method="POST" action="{{ url_for('deposit') }}" class="quick-form">
+            <input type="number" name="amount" placeholder="Deposit Amount" step="0.01" required>
+            <button type="submit" class="btn">Deposit</button>
+        </form>
+        <form method="POST" action="{{ url_for('withdraw') }}" class="quick-form">
+            <input type="number" name="amount" placeholder="Withdraw Amount" step="0.01" required>
+            <button type="submit" class="btn secondary">Withdraw</button>
+        </form>
+    </div>
+</body>
+</html>
+
