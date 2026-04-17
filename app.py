@@ -3,14 +3,16 @@ from models.user import User
 from models.customer import Customer
 from models.customer_user import CustomerUser
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# AI Agent removed - standalone in Desktop/Ai Agent folder
+agent_controller = None
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here_change_in_production'
 
-# In-memory storage (use database in production)
-ADMIN_USERS = {'admin': {'password': 'admin123', 'role': 'admin'}}
-CUSTOMER_USERS = {}  # {cust_id: {'password': '...', 'customer': Customer(...)}}
-CUSTOMERS = {}  # {cust_id: Customer(...)} 
+from data import ADMIN_USERS, CUSTOMER_USERS, CUSTOMERS
 
 @app.route('/')
 def index():
@@ -102,6 +104,45 @@ def withdraw():
     else:
         flash('Insufficient balance!')
     return redirect(url_for('customer_dashboard', cust_id=cust_id))
+
+# @app.route('/ai-agent')
+# def ai_agent():
+#     if not session.get('user'):
+#         flash('Login required for AI Agent!')
+#         return redirect(url_for('login'))
+#     if not agent_controller:
+#         flash('AI Agent not loaded. Install dependencies.')
+#         if session.get('role') == 'admin':
+#             return redirect(url_for('admin_dashboard'))
+#         return redirect(url_for('customer_dashboard', cust_id=session['user']))
+#     return render_template('ai_agent.html')
+
+@app.route('/ai-agent-stream')
+def ai_agent_stream():
+    if not agent_controller:
+        return "Agent not available", 503
+    goal = request.args.get('goal')
+    if not goal:
+        return "No goal provided", 400
+    
+    def generate():
+        try:
+            for chunk in agent_controller.execute_goal(goal):
+                yield f"data: {chunk}\\n\\n"
+            yield "data: [DONE]\\n\\n"
+        except Exception as e:
+            yield f"data: Error: {str(e)}\\n\\n"
+    
+    from flask import Response
+    return Response(generate(), mimetype='text/event-stream')
+
+from flask import jsonify
+@app.route('/api/sessions')
+def api_sessions():
+    if not agent_controller or not agent_controller.memory:
+        return jsonify([])
+    sessions = agent_controller.memory.get_recent_sessions()
+    return jsonify(sessions)
 
 @app.route('/logout')
 def logout():

@@ -1,0 +1,10 @@
+*.pyc
+__pycache__/
+.pytest_cache/
+.env
+*.zip
+.snapshots/
+ai_agent_standalone/
+.DS_Store
+*.log
+

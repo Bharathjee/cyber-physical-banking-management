@@ -10,6 +10,7 @@
     <div class="container">
         <h1>Customer Dashboard - {{ user }}</h1>
         <nav>
+            <a href="{{ url_for('ai-agent') }}" class="btn">🤖 AI Agent</a>
             <a href="{{ url_for('logout') }}" class="btn secondary">Logout</a>
         </nav>
         {% with messages = get_flashed_messages() %}

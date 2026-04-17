@@ -1,4 +1,6 @@
-# Cyber Physical Banking Management System
+# Cyber Physical Banking + AI Agent
+
+**New:** Goal-based AI Agent with planning, tools, real-time UI!
 
 [![Docker](https://img.shields.io/badge/Docker-%2300aced?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Bharathjee/cyber-physical-banking-management)

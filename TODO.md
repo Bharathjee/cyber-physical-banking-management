@@ -1,13 +1,9 @@
-# Cyber Physical Banking ✅ FULLY COMPLETE
+# Push to Ai-Agent Repo - Steps
 
-✅ Banking app w/ dynamic customer auth
-✅ Dockerized deployment  
-✅ GitHub repo (all commits pushed)
-✅ **PDF project documentation** (`project_documentation.pdf.txt`)
-✅ README.md + generator script
-
-**Status**: All files saved locally + GitHub  
-**App**: `python app.py` or Docker  
-**Docs**: Print `project_documentation.pdf.txt`
-
-**DEPLOYED** 🚀
+1. [ ] Clean .gitignore (add *.zip, .snapshots/, ai_agent_standalone/)
+2. [ ] git add .
+3. [ ] git commit -m "feat: add AI agent, data.py, update core files"
+4. [ ] git remote add ai-agent https://github.com/Bharathjee/Ai-Agent.git (if needed)
+5. [ ] git push ai-agent main
+6. [ ] Update README links if needed
+7. [ ] Verify on GitHub
